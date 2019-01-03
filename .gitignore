@@ -1,0 +1,6 @@
+praw.ini
+client_secret.json
+*oauth2.json
+.vscode
+__pycache__
+isdev.py
