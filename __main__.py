@@ -68,6 +68,9 @@ def get_playlist(youtube):
 				snippet = dict(
 					title = title,
 					description = ''
+				),
+				status=dict(
+					privacyStatus='public'
 				)
 			)
 		).execute()
