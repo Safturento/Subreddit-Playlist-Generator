@@ -7,3 +7,4 @@ praw==6.0.0
 prawcore==1.0.0
 requests==2.21.0
 requests-oauthlib==1.0.0
+tqdm==4.29.1

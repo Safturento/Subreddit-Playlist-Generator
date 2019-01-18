@@ -4,6 +4,8 @@ import sys
 import re
 import datetime
 
+from tqdm import tqdm
+
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -59,7 +61,7 @@ def get_playlist(youtube):
 
 		for playlist in my_playlists['items']:
 			if playlist['snippet']['title'] == title:
-				print(f'playlist {title} already found:', end=' ')
+				print(f'playlist {title} already found.')
 				return playlist
 
 		return youtube.playlists().insert(
@@ -78,7 +80,7 @@ def get_playlist(youtube):
 		print(f'An HTTP error {e.resp.status} occurred:\n {e.content}')
 			
 def populate_playlist(youtube, playlist, video_ids):
-	for video_id in video_ids:
+	for video_id in tqdm(video_ids):
 		try:
 			youtube.playlistItems().insert(
 				part = 'snippet',
@@ -94,9 +96,11 @@ def populate_playlist(youtube, playlist, video_ids):
 			).execute()
 		except HttpError as e:
 			if e.resp.status == 404:
-				print('video not found, skipping')
+				tqdm.write(f'{e.resp.status}: video not found, skipping video.')
+			elif e.resp.status == 403:
+				tqdm.write(f'{e.resp.status}: insufficient permissions, skipping video.')
 			else:
-				print(f'An HTTP error {e.resp.status} occurred:\n {e.content}')
+				tqdm.write(f'An HTTP error {e.resp.status} occurred:\n {e.content}')
 	
 	print('https://www.youtube.com/playlist?list=' + playlist['id'])
 
