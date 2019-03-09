@@ -26,13 +26,27 @@ client_secret=
 To access the youtube api go to [google's developer console](https://console.developers.google.com/apis) and create a new project (name it whatever you wish). Once you're on the new project dashboard click `ENABLE APIS AND SERVICES`, then search for and add the `YouTube Data API v3` service. Then click on Credentials and create credentials for `OAuth client ID`. Once done with this process you will be given the option to download a json file with your client secret information. rename the downloaded file to `client_secret.json` and place it in the project's root directory.
 
 ## Usage
-To have it generate a playlist with the defaults ([r/youtubehaiku](http://reddit.com/r/youtubehaiku), top-month) just go into the root directory and type `python .`. To change these parameters you can modify the `get_youtube_posts` call in the __main__ block of __main__.py. The optional parameters are:
-* subreddit (__str__) - the name of the subreddit to scrape
-* count (__int__) - how many posts to scrape
-* time (__str__) - timeline to sort by
+Navigate into the directory of the application and type ```python . -h``` to view all optional commands and defaults.
+```
+$python . -h
+usage: . [-h] [subreddit] [time] [count]
+
+Generate a youtube playlist from a chosen subreddit
+
+positional arguments:
+  subreddit   Which subreddit(s) to scrape (default=youtubehaiku)
+  time        Which sort timeline to use: all, day, hour, month, week, year
+              (default=month)
+  count       How many subreddit entries to scrape (default=100)
+
+optional arguments:
+  -h, --help  show this help message and exit
+  ```
 
 
 ## Future additions
-* Add progress bar when populating playlist
-* Move optional parameters to cli args
-* Add setup.py so script can be ran from anywhere
+[x] Add progress bar when populating playlist
+
+[x] Move optional parameters to cli args
+
+[ ] Add setup.py so script can be ran from anywhere
